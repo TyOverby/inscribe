@@ -1,0 +1,11 @@
+{
+  "name": "blaag",
+  "version": "0.0.0",
+  "description": "A static blog generator",
+  "main": "index.js",
+  "author": "Ty Overby",
+  "license": "MIT",
+  "dependencies": {
+      "readline-prompter": "0.2.0"
+  }
+}
