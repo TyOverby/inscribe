@@ -35,12 +35,13 @@ function init(args) {
         process.exit(1);
     }
 
-    var tokens = ['name', 'subName', 'author'];
-    var def = { 'subName': ''};
+    var tokens = ['name', 'subName', 'author', '_outDir_', '_postsDir_'];
+    var def = { 'subName': '', '_outDir_': './blog/', '_postsDir_': './posts/'};
     rlp(tokens, def).end(function (results) {
         fs.writeFileSync("blog.json", JSON.stringify(results, undefined, "    "));
         try{
-            fs.mkdirSync("posts");
+            fs.mkdirSync(results._postsDir_);
+            fs.mkdirSync(results._outDir_);
         } catch (e) {}
     });
 }
