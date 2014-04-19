@@ -52,7 +52,7 @@ function extractJsonFromMarkdown(str) {
 
     var closingIdx = str.slice(3).indexOf("---");
     var json = str.substring(3, closingIdx + 2);
-    return [JSON.parse(json), str.substring(closingIdx + 8)];
+    return [JSON.parse(json), str.substring(closingIdx + 7)];
 }
 
 function generate() {
@@ -63,13 +63,18 @@ function generate() {
     });
 
     var contents = files.map(function (fileName) {
-        return fs.readFileSync("posts/" + fileName, {encoding: 'utf8'});
+        return {
+            name: fileName,
+            str: fs.readFileSync("posts/" + fileName, {encoding: 'utf8'})
+        };
     });
 
-    var postsJson = contents.map(function (str) {
+    var postsJson = contents.map(function (content) {
+        var str = content.str;
         var obj;
         var seperated = extractJsonFromMarkdown(str);
         obj = seperated[0];
+        obj['_file_'] = content.name;
         obj['_contents_'] = seperated[1];
         return obj;
     });

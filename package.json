@@ -1,5 +1,5 @@
 {
-  "name": "blaag",
+  "name": "inscribe",
   "version": "0.0.0",
   "description": "A static blog generator",
   "main": "index.js",
