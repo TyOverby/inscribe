@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require('fs');
 var rlp = require('readline-prompter');
 
@@ -17,7 +19,7 @@ function printHelp() {
     var msg =
         "Usage:\n" +
         "  blaag init\n" +
-        "  blaag generate"
+        "  blaag generate";
 
     console.log(msg);
 }
@@ -44,7 +46,7 @@ function init(args) {
 }
 
 function extractJsonFromMarkdown(str) {
-    if (str.indexOf("---") != 0) {
+    if (str.indexOf("---") !== 0) {
         return [{}, str];
     }
 
@@ -54,9 +56,9 @@ function extractJsonFromMarkdown(str) {
 }
 
 function generate() {
-    var contents = fs.readdirSync("posts");
+    var postNames = fs.readdirSync("posts");
 
-    var files = contents.filter(function (fileName) {
+    var files = postNames.filter(function (fileName) {
         return fs.statSync("posts/" + fileName).isFile();
     });
 
