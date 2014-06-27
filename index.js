@@ -52,8 +52,25 @@ function extractJsonFromMarkdown(str) {
     }
 
     var closingIdx = str.slice(3).indexOf("---");
-    var json = str.substring(3, closingIdx + 2);
-    return [JSON.parse(json), str.substring(closingIdx + 7)];
+    if (closingIdx < 0) {
+        // TODO: Handle error
+    }
+    var config = str.substring(3, closingIdx + 2);
+    var configMap = {};
+    var configSplit = config.split("\n");
+    for(var i = 0; i < configSplit.length; i++) {
+        var line = configSplit[i];
+        if (line.trim().length === 0) {
+            continue;
+        }
+        var semiPos = line.indexOf(":");
+        if (semiPos <0) {
+            // TODO: Handle error
+        }
+        configMap[line.slice(0, semiPos).trim()] = line.slice(semiPos + 1).trim();
+    }
+
+    return [configMap, str.substring(closingIdx + 7)];
 }
 
 function generate() {
